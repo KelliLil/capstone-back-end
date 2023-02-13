@@ -1,12 +1,19 @@
+import cors from "cors";
 import express from "express";
 import config from "./config.js";
 import cuisineRouter from "./cuisine/routes.js";
 import decodeUser from "./middleware/decode-user.js";
+import restaurantRouter from "./restaurant/routes.js";
 import userRouter from "./user/routes.js";
 import voteLinkRouter from "./vote-link/routes.js";
-import restaurantRouter from "./restaurant/routes.js";
 
 const app = express();
+
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 app.use("/api/cuisines", cuisineRouter);
 app.use("/api/restaurants", restaurantRouter);
