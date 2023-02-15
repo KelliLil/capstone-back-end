@@ -14,7 +14,7 @@ type VoteLinkVote {
 
 model Cuisine {
   id   String @id @default(auto()) @map("_id") @db.ObjectId
-  cuisine String @unique
+  name String
 }
 
 model User {
