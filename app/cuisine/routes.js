@@ -1,10 +1,10 @@
 import { Router } from "express";
-import userController from "./controller.js";
+import cuisineController from "./controller.js";
 
 const router = Router();
 
 router.get("/", (_, res) => {
-  userController
+  cuisineController
     .index()
     .then((cuisines) => {
       res.json(cuisines);
