@@ -1,6 +1,5 @@
 // https://api.yelp.com/v3/businesses/search?location=62236&radius=40000&term=restaurants&categories=chinese&sort_by=best_match
 import got from "got";
-import config from "../config.js";
 import { convertMiles2Meters, getRandomInt } from "./utils.js";
 
 const controller = {
@@ -12,12 +11,14 @@ const controller = {
     // * Limit the radius to 40,000 meters (24.85 miles)
     radiusInMeters = radiusInMeters > 40000 ? 40000 : radiusInMeters;
 
+    //
+
     const url = `https://api.yelp.com/v3/businesses/search?location=${location}&radius=${radiusInMeters}&term=restaurants&categories=${category}&sort_by=best_match`;
 
     // * Fetch the data from the API
     const data = await got(url, {
       headers: {
-        Authorization: config.yelpAPIKey,
+        Authorization: `Bearer config.yelpAPIKey`,
       },
     })
       // * Convert the response body to JSON
@@ -36,5 +37,18 @@ const controller = {
     return restaurants[randomIndex];
   },
 };
+
+controller
+  .getRandomRestaurant({
+    location: "62236",
+    radius: 10,
+    category: "chinese",
+  })
+  .then((restaurant) => {
+    console.log(restaurant);
+  })
+  .catch((err) => {
+    console.error(err.message);
+  });
 
 export default controller;
